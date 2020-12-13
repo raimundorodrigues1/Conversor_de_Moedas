@@ -24,6 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   http: ^0.12.0+4
+  lottie: ^0.6.0
   
 dev_dependencies:
   flutter_test:
@@ -35,6 +36,11 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
+  assets:
+  - lib/assets/money.json
+  - lib/assets/loading_money.json
+  - lib/assets/error.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

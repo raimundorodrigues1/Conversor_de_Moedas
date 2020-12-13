@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:lottie/lottie.dart';
 
 const request = "https://api.hgbrasil.com/finance/quotations?key=e3bbe724";
 
@@ -9,15 +10,16 @@ void main() async {
   print(await getData());
   runApp(MaterialApp(
     home: Home(),
+    debugShowCheckedModeBanner: false,
     theme: ThemeData(
-        hintColor: Colors.amber,
-        primaryColor: Colors.white,
+        hintColor: Colors.black,
+        primaryColor: Colors.black,
         inputDecorationTheme: InputDecorationTheme(
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.amberAccent)),
+          enabledBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
           focusedBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-          hintStyle: TextStyle(color: Colors.white),
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+          hintStyle: TextStyle(color: Colors.black),
         )),
   ));
 }
@@ -72,17 +74,20 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown,
+      backgroundColor: Color(0xFFF0FFFF),
       appBar: AppBar(
         title:
             Text("Conversor de Moedas", style: TextStyle(color: Colors.black)),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: Icon(
+              Icons.refresh,
+              color: Colors.black,
+            ),
             onPressed: _resetFields,
           ),
         ],
-        backgroundColor: Colors.amber,
+        backgroundColor: Color(0xFF00FA9A),
         centerTitle: true,
       ),
       body: FutureBuilder<Map>(
@@ -92,19 +97,29 @@ class _HomeState extends State<Home> {
               case ConnectionState.none:
               case ConnectionState.waiting:
                 return Center(
-                  child: Text(
-                    "Carregando Dados...",
-                    style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                    textAlign: TextAlign.center,
+                  child: Container(
+                    width: 250,
+                    height: 250,
+                    child: Lottie.asset(
+                      'lib/assets/loading_money.json',
+                      repeat: true,
+                      reverse: true,
+                      animate: true,
+                    ),
                   ),
                 );
               default:
                 if (snapshot.hasError) {
                   return Center(
-                    child: Text(
-                      "Erro ao Carregar Dados...",
-                      style: TextStyle(color: Colors.amber, fontSize: 25.0),
-                      textAlign: TextAlign.center,
+                    child: Container(
+                      width: 250,
+                      height: 250,
+                      child: Lottie.asset(
+                        'lib/assets/error.json',
+                        repeat: true,
+                        reverse: true,
+                        animate: true,
+                      ),
                     ),
                   );
                 } else {
@@ -114,20 +129,26 @@ class _HomeState extends State<Home> {
                     padding: EdgeInsets.all(10.0),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Icon(
-                            Icons.monetization_on,
-                            size: 150.0,
-                            color: Colors.amber,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 250,
+                            height: 250,
+                            child: Lottie.asset(
+                              'lib/assets/money.json',
+                              repeat: true,
+                              reverse: true,
+                              animate: true,
+                            ),
                           ),
-                          buildTextField("Real Brasileiro", " R\$",
+                          buildTextField("Real Brasileiro", " R\$: ",
                               realController, _realChanged),
                           Divider(),
-                          buildTextField("Dólar Americano", "US\$",
+                          buildTextField("Dólar Americano", "US\$: ",
                               dolarController, _dolarChanged),
                           Divider(),
                           buildTextField(
-                              "Euro", " €", euroController, _euroChanged),
+                              "Euro", " €: ", euroController, _euroChanged),
                         ]),
                   );
                 }
@@ -143,11 +164,11 @@ Widget buildTextField(
     controller: control,
     decoration: InputDecoration(
         labelText: label,
-        labelStyle: TextStyle(color: Colors.amber, fontSize: 25.0),
+        labelStyle: TextStyle(color: Colors.black, fontSize: 25.0),
         border: OutlineInputBorder(),
         prefixText: prefix,
-        prefixStyle: TextStyle(color: Colors.amber, fontSize: 20.0)),
-    style: TextStyle(color: Colors.white70,fontSize: 20.0),
+        prefixStyle: TextStyle(color: Colors.black, fontSize: 20.0)),
+    style: TextStyle(color: Colors.black, fontSize: 20.0),
     onChanged: f,
     keyboardType: TextInputType.number,
   );
